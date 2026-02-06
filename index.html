@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Absen Kelas</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#667eea,#764ba2);
+font-family:Segoe UI,sans-serif;
+overflow:hidden;
+}
+.box{
+background:white;
+width:380px;
+padding:25px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 15px 30px rgba(0,0,0,0.3);
+}
+select,input,button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #ccc;
+}
+button{
+border:none;
+background:linear-gradient(135deg,#667eea,#764ba2);
+color:white;
+cursor:pointer;
+font-size:15px;
+}
+button:hover{transform:scale(1.05)}
+
+#hasil{margin-top:15px;font-weight:bold}
+
+.smile{font-size:60px;animation:zoom 1s infinite alternate}
+@keyframes zoom{to{transform:scale(1.2)}}
+
+.confetti{
+position:fixed;
+width:10px;height:10px;
+top:-10px;
+animation:jatuh 3s linear infinite
+}
+@keyframes jatuh{
+to{transform:translateY(100vh) rotate(360deg);opacity:0}
+}
+
+#mapel{display:none}
+.mapel-btn{margin-top:6px}
+
+/* Popup PR */
+#popup{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.6);
+justify-content:center;
+align-items:center;
+}
+.popup-box{
+background:white;
+padding:20px;
+width:300px;
+border-radius:15px;
+text-align:center;
+animation:pop 0.5s;
+}
+@keyframes pop{
+from{transform:scale(0.5);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+.warning{
+font-size:50px;
+animation:shake 0.5s infinite;
+}
+@keyframes shake{
+0%{transform:rotate(0)}
+25%{transform:rotate(5deg)}
+50%{transform:rotate(-5deg)}
+75%{transform:rotate(5deg)}
+100%{transform:rotate(0)}
+}
+
+/* Animasi tanaman */
+.leaf{
+position:fixed;
+top:-20px;
+font-size:24px;
+animation:fall 4s linear infinite;
+}
+@keyframes fall{
+to{transform:translateY(100vh) rotate(360deg);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ABSEN -->
+<div class="box" id="absen">
+<h2>Absen Kelas</h2>
+
+<select id="nama">
+<option value="">-- Pilih Nama --</option>
+<option value="1"> Adinda Sekar Ayu</option>
+<option value="2"> Afra Azya Azizah</option>
+<option value="3"> Aisyah Indra Pratiwi</option>
+<option value="4"> Alya Azizah Azzahra</option>
+<option value="5"> Aneira Lintang Tauziah</option>
+<option value="6"> Arsyafa Fira Kusuma</option>
+<option value="7"> Arthalita Nielzah</option>
+<option value="8"> Ayudya Nurul Ramadhani</option>
+<option value="9"> Dhea Novita Wijayanti</option>
+<option value="10"> Dimas Alfauruz Prasetyo</option>
+<option value="11"> Dinda Palomita</option>
+<option value="12"> Eka Zahra Suyitno</option>
+<option value="13"> Elvira Khoirunnisa</option>
+<option value="14"> Favian Farrel Laksana</option>
+<option value="15"> Feyza Aluna Ramadani</option>
+<option value="16"> Hafiz Firdaus Al Hakim</option>
+<option value="17"> Kalyca Gama Maheswari</option>
+<option value="18"> Khansa Laili Hanifa</option>
+<option value="19"> Lutfie Aulia Rahmah</option>
+<option value="20"> Malva Tyola Nirwasita</option>
+<option value="21"> Mei Shinta Anggraini</option>
+<option value="22"> Mohammad Ghani Wastu Adinata</option>
+<option value="23"> Muhammad Masy'aril Ala</option>
+<option value="24"> Muhammad Nu'man Al Hasani</option>
+<option value="25"> Muhammad Rizky Prakoso</option>
+<option value="26"> Muhammad Sholihul Adi</option>
+<option value="27"> Nadya Fikra Anggara</option>
+<option value="28"> Noventya Ulul Azmi</option>
+<option value="29"> Putra Akmal Kahita</option>
+<option value="30"> Rahmat Wahyudi</option>
+<option value="31"> Rama Aldi Setiawan</option>
+<option value="32"> Rehana Alya Modji Putri</option>
+<option value="33"> Reisya Laillia Hafizah</option>
+<option value="34"> Safa Alzena</option>
+<option value="35"> Siti Fatimah Azahro</option>
+<option value="36"> Zahra Alfiani Azah</option>
+</select>
+
+<input type="password" id="pass" placeholder="Nomor Absen">
+<button onclick="absen()">ABSEN</button>
+<div id="hasil"></div>
+</div>
+
+<!-- MAPEL -->
+<div class="box" id="mapel">
+<h2>Mata Pelajaran</h2>
+<button class="mapel-btn" onclick="bukaPR('PKWU','PR Kerajinan')">🛠️ PKWU</button>
+<button class="mapel-btn" onclick="bukaPR('Agama','Membuat PPT materi keagamaan')">📖 Agama</button>
+<button class="mapel-btn" onclick="bukaPR('Seni Rupa','PR Menanam tanaman dan mencari nama latin dan nama ilmianya')">🎨 Seni Rupa</button>
+<button class="mapel-btn">Fisika</button>
+<button class="mapel-btn">Sejarah</button>
+<button class="mapel-btn">Bahasa Indonesia</button>
+<button class="mapel-btn">Biologi</button>
+<button class="mapel-btn">Kimia</button>
+<button class="mapel-btn">Matematika</button>
+<button class="mapel-btn">Bahasa Inggris</button>
+<button class="mapel-btn">Sosiologi</button>
+<button class="mapel-btn">PJOK</button>
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+<div class="popup-box">
+<div class="warning">⚠️</div>
+<h3 id="judul"></h3>
+<p id="isi"></p>
+<button onclick="tutup()">OK</button>
+</div>
+</div>
+
+<script>
+function absen(){
+let s=document.getElementById("nama");
+let pass=document.getElementById("pass").value;
+let hasil=document.getElementById("hasil");
+
+if(s.value!=="" && pass===s.value){
+hasil.innerHTML="<div class='smile'>😊</div>"+s.options[s.selectedIndex].text+"<br>Terima kasih sudah absen";
+hasil.style.color="green";
+
+for(let i=0;i<25;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+}
+
+setTimeout(()=>{
+document.getElementById("absen").style.display="none";
+document.getElementById("mapel").style.display="block";
+},2000);
+}else{
+hasil.style.color="red";
+hasil.innerHTML="Nomor absen salah";
+}
+}
+
+function bukaPR(mapel,pr){
+document.getElementById("judul").innerText=mapel;
+document.getElementById("isi").innerText=pr;
+document.getElementById("popup").style.display="flex";
+
+if(mapel==="Seni Rupa"){
+for(let i=0;i<10;i++){
+let d=document.createElement("div");
+d.className="leaf";
+d.innerText="🌱";
+d.style.left=Math.random()*100+"vw";
+document.body.appendChild(d);
+setTimeout(()=>d.remove(),4000);
+}
+}
+}
+
+function tutup(){
+document.getElementById("popup").style.display="none";
+}
+</script>
+
+</body>
+</html>
